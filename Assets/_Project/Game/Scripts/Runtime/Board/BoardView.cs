@@ -1,4 +1,3 @@
-using System;
 using TicTacToe.Game.Slot;
 using UnityEngine;
 

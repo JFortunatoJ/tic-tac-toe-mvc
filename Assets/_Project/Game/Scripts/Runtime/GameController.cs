@@ -1,47 +1,48 @@
 using TicTacToe.Game.Board;
+using TicTacToe.Game.Player;
 using TicTacToe.Game.Slot;
 using UnityEngine;
+using Zenject;
 
 namespace TicTacToe.Game
 {
     public class GameController : MonoBehaviour
-    {
-        public static GameController Instance;
-
+    { 
         private BoardController _board;
-        private Player.Player _player1;
-        private Player.Player _player2;
-        private Player.Player _currentPlayer;
+        
+        private PlayerController _player1;
+        private PlayerController _player2;
+        public  PlayerController CurrentPlayer { get; private set; }
 
-        private void Awake()
+        [Inject]
+        public void Construct(BoardController board)
         {
-            Instance = this;
-
-            _board = FindObjectOfType<BoardController>();
+            _board = board;
         }
 
         private void Start()
         {
-            _board.OnTapSlot = OnSlotTap;
             _board.InstantiateBoard();
 
-            _player1 = new Player.Player(SlotModel.SlotSign.X);
-            _player2 = new Player.Player(SlotModel.SlotSign.O);
-            _currentPlayer = _player1;
+            _player1 = new PlayerFactory().LoadHumanPlayer(this, SlotModel.SlotSign.X);
+            _player2 = new PlayerFactory().LoadAiPlayer(this, SlotModel.SlotSign.O);
+            
+            CurrentPlayer = _player1;
+            CurrentPlayer.AllowPlay();
         }
 
-        private void ChangeCurrentPlayer()
+        public void CheckWinner()
         {
-            _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
-        }
-
-        private void OnSlotTap(SlotController slot)
-        {
-            slot.Sign = _currentPlayer.sing;
-
-            if (_board.CheckWinner() == SlotModel.SlotSign.None)
+            if (_board.GetWinnerSign() == SlotModel.SlotSign.None)
             {
-                ChangeCurrentPlayer();
+                if (_board.AllSlotsWereFilled())
+                {
+                    //TODO: Tie
+                }
+                else
+                {
+                    //ChangeCurrentPlayer(); 
+                }
             }
             else
             {
@@ -49,12 +50,10 @@ namespace TicTacToe.Game
             }
         }
 
-        /*
-        [Inject]
-        public void Construct(BoardView board)
+        private void ChangeCurrentPlayer()
         {
-            _board = board;
+            CurrentPlayer = CurrentPlayer == _player1 ? _player2 : _player1;
+            CurrentPlayer.AllowPlay();
         }
-        */
     }
 }

@@ -13,4 +13,9 @@ namespace TicTacToe.Game
             View = GetComponent<TV>();
         }
     }
+    
+    public class BaseController<TM> : MonoBehaviour where TM : BaseModel
+    {
+        public TM model;
+    }
 }
