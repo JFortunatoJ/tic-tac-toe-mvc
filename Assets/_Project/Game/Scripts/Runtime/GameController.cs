@@ -1,59 +1,66 @@
 using TicTacToe.Game.Board;
 using TicTacToe.Game.Player;
-using TicTacToe.Game.Slot;
 using UnityEngine;
 using Zenject;
 
 namespace TicTacToe.Game
 {
     public class GameController : MonoBehaviour
-    { 
-        private BoardController _board;
+    {
+        public PlayerController Player1 { get; private set; }
+        public PlayerController Player2 { get; private set; }
         
-        private PlayerController _player1;
-        private PlayerController _player2;
         public  PlayerController CurrentPlayer { get; private set; }
+        public BoardController Board { get; private set; }
 
         [Inject]
         public void Construct(BoardController board)
         {
-            _board = board;
+            Board = board;
         }
 
         private void Start()
         {
-            _board.InstantiateBoard();
+            Board.InstantiateBoard();
 
-            _player1 = new PlayerFactory().LoadHumanPlayer(this, SlotModel.SlotSign.X);
-            _player2 = new PlayerFactory().LoadAiPlayer(this, SlotModel.SlotSign.O);
+            PlayerFactory playerFactory = new PlayerFactory();
+            Player1 = playerFactory.LoadHumanPlayer(this, SlotSign.X);
+            //Player2 = playerFactory.LoadHumanPlayer(this, SlotSign.O);
+            Player2 = playerFactory.LoadAiPlayer(this, SlotSign.O);
             
-            CurrentPlayer = _player1;
+            CurrentPlayer = Player1;
             CurrentPlayer.AllowPlay();
         }
 
         public void CheckWinner()
         {
-            if (_board.GetWinnerSign() == SlotModel.SlotSign.None)
+            SlotSign winnerSign = Board.GetWinnerSign();
+            if (winnerSign == SlotSign.Empty)
             {
-                if (_board.AllSlotsWereFilled())
+                if (Board.AllSlotsWereFilled())
                 {
-                    //TODO: Tie
+                    print("Empate");
                 }
                 else
                 {
-                    //ChangeCurrentPlayer(); 
+                    ChangeCurrentPlayer(); 
                 }
             }
             else
             {
-                print("Acabou");
+                print($"O {winnerSign} venceu!");
             }
         }
 
         private void ChangeCurrentPlayer()
         {
-            CurrentPlayer = CurrentPlayer == _player1 ? _player2 : _player1;
+            CurrentPlayer = CurrentPlayer == Player1 ? Player2 : Player1;
             CurrentPlayer.AllowPlay();
+        }
+
+        public PlayerController GetPlayerBySign(SlotSign sign)
+        {
+            return sign == Player1.model.Sing ? Player1 : Player2;
         }
     }
 }

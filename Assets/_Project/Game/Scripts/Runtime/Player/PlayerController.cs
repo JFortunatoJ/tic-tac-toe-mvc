@@ -5,23 +5,27 @@ namespace TicTacToe.Game.Player
     public class PlayerController : BaseController<PlayerModel>
     {
         protected GameController _gameController;
-        
-        public void Construct(GameController gameController, PlayerModel model)
+
+        public virtual void Construct(PlayerModel model, GameController gameController)
         {
-            _gameController = gameController;
             this.model = model;
+            _gameController = gameController;
         }
 
         public virtual void AllowPlay()
         {
         }
-        
+
         protected virtual void PlayerAction()
         {
         }
 
         public virtual void SelectSlot(SlotController slot)
         {
+            if (!slot.CanInteractWithSlot()) return;
+            
+            _gameController.Board.SetSlotSignAtBoard(model.Sing, slot.Model.boardPosition);
+            _gameController.CheckWinner();
         }
 
         protected bool MyTurn()

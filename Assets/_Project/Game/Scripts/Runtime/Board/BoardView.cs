@@ -9,9 +9,10 @@ namespace TicTacToe.Game.Board
         [SerializeField] private SlotController _slotPrefab;
         [SerializeField] private Transform _slotsHolder;
 
-        public SlotController InstantiateNewSlot(Vector2 position)
+        public SlotController InstantiateNewSlot(Vector2 position, Vector2Int boardPosition)
         {
             SlotController newSlot = Instantiate(_slotPrefab, _slotsHolder);
+            newSlot.gameObject.name = $"Slot ({boardPosition.x}, {boardPosition.y})";
             newSlot.View.Position = position;
 
             return newSlot;

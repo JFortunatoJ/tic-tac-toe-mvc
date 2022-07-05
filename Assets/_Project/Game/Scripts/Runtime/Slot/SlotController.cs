@@ -2,19 +2,19 @@ namespace TicTacToe.Game.Slot
 {
     public class SlotController : BaseController<SlotModel, SlotView>
     {
-        public SlotModel.SlotSign Sign
+        public SlotSign Sign
         {
-            get => model.sign;
+            get => Model.sign;
             set
             {
-                model.sign = value;
+                Model.sign = value;
                 View.Sign = value;
             }
         }
 
         public bool CanInteractWithSlot()
         {
-            return model.sign == SlotModel.SlotSign.None;
+            return Model.sign == SlotSign.Empty;
         }
     }
 }

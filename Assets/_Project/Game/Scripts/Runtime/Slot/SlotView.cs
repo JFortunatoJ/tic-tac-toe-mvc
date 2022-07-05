@@ -5,7 +5,7 @@ namespace TicTacToe.Game.Slot
 {
     public class SlotView : BaseView
     {
-        [SerializeField]
+        [SerializeField] 
         private TextMeshPro _singText;
 
         public Vector2 Position
@@ -13,19 +13,19 @@ namespace TicTacToe.Game.Slot
             set => transform.position = value;
         }
 
-        public SlotModel.SlotSign Sign
+        public SlotSign Sign
         {
             set
             {
                 switch (value)
                 {
-                    case SlotModel.SlotSign.None:
+                    case SlotSign.Empty:
                         _singText.text = string.Empty;
                         break;
-                    case SlotModel.SlotSign.O:
+                    case SlotSign.O:
                         _singText.text = "O";
                         break;
-                    case SlotModel.SlotSign.X:
+                    case SlotSign.X:
                         _singText.text = "X";
                         break;
                 }

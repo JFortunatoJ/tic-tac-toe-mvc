@@ -4,7 +4,13 @@ namespace TicTacToe.Game
 {
     public class BaseController<TM, TV> : MonoBehaviour where TM : BaseModel where TV : BaseView
     {
-        public TM model;
+        [SerializeField]
+        protected TM model;
+        public TM Model
+        { 
+            get => model;
+            protected set => model = value;
+        }
 
         public TV View { get; private set; }
 

@@ -1,14 +1,15 @@
-using TicTacToe.Game.Slot;
-
 namespace TicTacToe.Game
 {
+    [System.Serializable]
     public class PlayerModel : BaseModel
     {
-        public SlotModel.SlotSign Sing { get; private set; }
+        public SlotSign Sing { get; private set; }
+        public int score;
 
-        public PlayerModel(SlotModel.SlotSign sing)
+        public PlayerModel(SlotSign sing)
         {
             Sing = sing;
+            score = 0;
         }
     }
 }

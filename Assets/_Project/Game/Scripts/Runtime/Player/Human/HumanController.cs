@@ -47,13 +47,5 @@ namespace TicTacToe.Game.Player
             
             SelectSlot(slot);
         }
-
-        public override void SelectSlot(SlotController slot)
-        {
-            if(!slot.CanInteractWithSlot()) return;
-            
-            slot.Sign = model.Sing;
-            _gameController.CheckWinner();
-        }
     }
 }
