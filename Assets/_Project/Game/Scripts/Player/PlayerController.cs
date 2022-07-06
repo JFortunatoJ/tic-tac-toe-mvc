@@ -22,10 +22,15 @@ namespace TicTacToe.Game.Player
 
         public virtual void SelectSlot(SlotController slot)
         {
-            if (!slot.CanInteractWithSlot()) return;
+            if (_gameController.GameOver || !slot.CanInteractWithSlot()) return;
             
             _gameController.Board.SetSlotSignAtBoard(model.Sing, slot.Model.boardPosition);
             _gameController.CheckWinner();
+        }
+
+        public void Win()
+        {
+            model.score++;
         }
 
         protected bool MyTurn()

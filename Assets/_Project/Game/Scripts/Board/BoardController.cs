@@ -28,6 +28,22 @@ namespace TicTacToe.Game.Board
             }
         }
 
+        public void ClearBoard()
+        {
+            for (int i = 0; i < Model.boardWidth; i++)
+            {
+                for (int j = 0; j < Model.boardHeight; j++)
+                {
+                    model.boardGrid[i, j] = SlotSign.Empty;
+                }
+            }
+            
+            foreach (var slotController in _slotsList)
+            {
+                slotController.Value.Sign = SlotSign.Empty;
+            }
+        }
+
         public void PrintBoard()
         {
             print($"{Model.boardGrid[0, 0]}|{Model.boardGrid[1, 0]}|{Model.boardGrid[2, 0]}\n" +

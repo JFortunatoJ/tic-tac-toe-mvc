@@ -1,4 +1,4 @@
-namespace TicTacToe.Game
+namespace TicTacToe.Game.Player
 {
     [System.Serializable]
     public class PlayerModel : BaseModel

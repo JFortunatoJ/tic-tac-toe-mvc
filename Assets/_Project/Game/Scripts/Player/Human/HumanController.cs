@@ -1,5 +1,6 @@
 using TicTacToe.Game.Slot;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TicTacToe.Game.Player
 {
@@ -24,7 +25,7 @@ namespace TicTacToe.Game.Player
 
         private void Update()
         {
-            if(!_canPlay) return;
+            if(!_canPlay || _gameController.GameOver) return;
             
             PlayerAction();
         }
@@ -39,6 +40,7 @@ namespace TicTacToe.Game.Player
             if(!MyTurn()) return;
             
             if(!Input.GetMouseButtonUp(0)) return;
+            if(EventSystem.current.IsPointerOverGameObject()) return;
 
             Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, float.PositiveInfinity, _slotLayer);
