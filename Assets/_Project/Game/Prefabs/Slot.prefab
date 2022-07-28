@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6066863340705771254}
   - component: {fileID: 4569864153114078957}
   - component: {fileID: 8425160049601024728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 8164409299399964164}
   - component: {fileID: 8773302294337286270}
   - component: {fileID: 8773302294337286265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model:
+    boardPosition: {x: 0, y: 0}
     sign: 0
 --- !u!114 &8164409299399964164
 MonoBehaviour:
